@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>نتائج الدورات</title>
+<title>نظام نتائج الدورات</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -24,79 +24,87 @@ color:white;
 }
 
 .overlay{
-background:rgba(0,0,0,0.75);
+background:rgba(0,0,0,0.8);
 min-height:100vh;
 padding:40px;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .container{
+width:100%;
 max-width:900px;
-margin:auto;
-background:rgba(20,20,20,0.65);
-backdrop-filter:blur(10px);
+background:rgba(20,20,20,0.75);
+backdrop-filter:blur(12px);
 border-radius:20px;
-padding:30px;
-box-shadow:0 0 40px rgba(0,0,0,0.7);
+padding:35px;
+box-shadow:0 10px 40px rgba(0,0,0,0.9);
 }
 
-h1{
+.header{
 text-align:center;
 margin-bottom:30px;
+}
+
+.header h1{
+margin:0;
 font-weight:700;
+font-size:28px;
 }
 
 label{
 display:block;
-margin-top:15px;
-margin-bottom:5px;
+margin-top:18px;
+margin-bottom:6px;
+font-size:14px;
+opacity:0.9;
 }
 
-input, select{
+input, select, textarea{
 width:100%;
-padding:10px;
-border-radius:8px;
-border:none;
-background:#1e1e1e;
+padding:12px;
+border-radius:10px;
+border:1px solid #333;
+background:#141414;
 color:white;
 font-family:'Cairo',sans-serif;
+font-size:14px;
 }
 
 textarea{
-width:100%;
-height:250px;
-padding:12px;
-border-radius:8px;
-border:none;
-background:#1e1e1e;
-color:white;
+height:220px;
 resize:none;
-font-family:'Cairo',sans-serif;
 }
 
 button{
-margin-top:20px;
+margin-top:15px;
 width:100%;
-padding:12px;
+padding:14px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:linear-gradient(45deg,#00c6ff,#0072ff);
 color:white;
 font-size:16px;
+font-weight:700;
 cursor:pointer;
-transition:0.2s;
+transition:0.25s;
 }
 
 button:hover{
 transform:scale(1.03);
+box-shadow:0 0 20px rgba(0,150,255,0.6);
 }
 
 .result{
-margin-top:30px;
-background:#0d0d0d;
+margin-top:25px;
+background:#0a0a0a;
 padding:20px;
-border-radius:10px;
+border-radius:12px;
 white-space:pre-wrap;
 border:1px solid #333;
+line-height:1.7;
+font-size:14px;
 }
 
 </style>
@@ -108,7 +116,9 @@ border:1px solid #333;
 
 <div class="container">
 
+<div class="header">
 <h1>نتائج الدورات</h1>
+</div>
 
 <label>اسم الدورة</label>
 
@@ -130,6 +140,8 @@ border:1px solid #333;
 <textarea id="data"></textarea>
 
 <button onclick="generate()">إنشاء التقرير</button>
+
+<button id="copyBtn" onclick="copyResult()">نسخ النتيجة</button>
 
 <div class="result" id="result"></div>
 
@@ -224,11 +236,30 @@ document.getElementById("result").textContent=report
 
 }
 
+function copyResult(){
+
+let text=document.getElementById("result").textContent
+let btn=document.getElementById("copyBtn")
+
+if(!text){
+btn.innerText="لا يوجد نتيجة"
+setTimeout(()=>{
+btn.innerText="نسخ النتيجة"
+},2000)
+return
+}
+
+navigator.clipboard.writeText(text)
+
+btn.innerText="✓ تم النسخ"
+
+setTimeout(()=>{
+btn.innerText="نسخ النتيجة"
+},2000)
+
+}
+
 </script>
 
 </body>
-
 </html>
-
-
-
